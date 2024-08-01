@@ -17,7 +17,7 @@ from .__init__ import Info, pass_info
 import boto3
 import base64
 import json as json_lib
-from cloudflare import Cloudflare
+import CloudFlare
 import awsipranges
 from slack_sdk.webhook import WebhookClient
 from botocore.exceptions import ClientError
@@ -56,7 +56,7 @@ def send_webhook(slackwebhook, takeovers):
 
 def get_cloudflare_records(cloudflaretoken):
     log("Obtaining all zone names from Cloudflare.")
-    cf = Cloudflare(token=cloudflaretoken, raw=True)
+    cf = CloudFlare.CloudFlare(token=cloudflaretoken, raw=True)
     dns_records = []
     # get zone names
     cloudflare_zones = []
@@ -75,7 +75,7 @@ def get_cloudflare_records(cloudflaretoken):
             total_pages = raw_results["result_info"]["total_pages"]
             if page_number == total_pages:
                 break
-    except Cloudflare.exceptions.CloudflareAPIError as e:
+    except CloudFlare.exceptions.CloudFlareAPIError as e:
         exit("Failed to retreive zones %d %s - api call failed" % (e, e))
 
     log("Obtaining DNS A records for all zones from Cloudflare.")
@@ -101,7 +101,7 @@ def get_cloudflare_records(cloudflaretoken):
                 total_pages = raw_results["result_info"]["total_pages"]
                 if page_number == total_pages:
                     break
-        except Cloudflare.exceptions.CloudflareAPIError as e:
+        except CloudFlare.exceptions.CloudFlareAPIError as e:
             exit("Failed to retreive DNS records %d %s - api call failed" % (e, e))
     return dns_records
 
