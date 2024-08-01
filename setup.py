@@ -45,7 +45,7 @@ setup(
         # Include dependencies here
         "click>=7.0,<8",
         "boto3",
-        "cloudflare",
+        "cloudflare==2.19.4",
         "awsipranges",
         "slack_sdk"
     ],
