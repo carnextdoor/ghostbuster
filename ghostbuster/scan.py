@@ -56,7 +56,7 @@ def send_webhook(slackwebhook, takeovers):
 
 def get_cloudflare_records(cloudflaretoken):
     log("Obtaining all zone names from Cloudflare.")
-    cf = CloudFlare(token=cloudflaretoken, raw=True)
+    cf = Cloudflare(token=cloudflaretoken, raw=True)
     dns_records = []
     # get zone names
     cloudflare_zones = []
