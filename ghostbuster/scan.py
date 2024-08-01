@@ -56,7 +56,7 @@ def send_webhook(slackwebhook, takeovers):
 
 def get_cloudflare_records(cloudflaretoken):
     log("Obtaining all zone names from Cloudflare.")
-    cf = CloudFlare.CloudFlare(token=cloudflaretoken, raw=True)
+    cf = CloudFlare(token=cloudflaretoken, raw=True)
     dns_records = []
     # get zone names
     cloudflare_zones = []
@@ -75,7 +75,7 @@ def get_cloudflare_records(cloudflaretoken):
             total_pages = raw_results["result_info"]["total_pages"]
             if page_number == total_pages:
                 break
-    except CloudFlare.exceptions.CloudFlareAPIError as e:
+    except Cloudflare.exceptions.CloudflareAPIError as e:
         exit("Failed to retreive zones %d %s - api call failed" % (e, e))
 
     log("Obtaining DNS A records for all zones from Cloudflare.")
@@ -101,7 +101,7 @@ def get_cloudflare_records(cloudflaretoken):
                 total_pages = raw_results["result_info"]["total_pages"]
                 if page_number == total_pages:
                     break
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Cloudflare.exceptions.CloudflareAPIError as e:
             exit("Failed to retreive DNS records %d %s - api call failed" % (e, e))
     return dns_records
 
