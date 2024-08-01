@@ -17,7 +17,7 @@ from .__init__ import Info, pass_info
 import boto3
 import base64
 import json as json_lib
-import cloudflare
+from cloudflare import Cloudflare
 import awsipranges
 from slack_sdk.webhook import WebhookClient
 from botocore.exceptions import ClientError
